@@ -24,7 +24,7 @@ const aggregate = (filePath) => {
   }
 
   // reading datafile and making final op
-  fs.readFile(filePath, 'utf8', function (err, data) {
+  fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {
       throw err;
     }
