@@ -27,18 +27,12 @@ const aggregate = filePath => new Promise((resolve1, reject1) => {
     // cleaning datafile.csv
     let countryObjects;
     const countryMap = [];
-    const data = values[0];
-    const dataString = data.toString();
-    const splitData = dataString.split('\n');
+    let data = values[0];
+    data = data.replace(/['"]+/g, '');
+    const splitData = data.toString().split('\n');
     const headers = splitData[0].split(',');
-    for (let i = 0; i < headers.length; i += 1) {
-      headers[i] = headers[i].replace(/['"]+/g, '');
-    }
     for (let i = 1; i < splitData.length; i += 1) {
       const cleandata = splitData[i].split(',');
-      for (let k = 0; k < cleandata.length; k += 1) {
-        cleandata[k] = cleandata[k].replace(/['"]+/g, '');
-      }
       countryObjects = {};
       for (let j = 0; j < cleandata.length; j += 1) {
         countryObjects[headers[j]] = cleandata[j];
@@ -55,7 +49,6 @@ const aggregate = filePath => new Promise((resolve1, reject1) => {
     }
     const continentsplitData = [...new Set(continentlist)];
     continentsplitData.splice(6, 1);
-
     const finalsplitData = [];
     const countryObjectsectdefined = {};
     // aggregating
@@ -89,3 +82,4 @@ const aggregate = filePath => new Promise((resolve1, reject1) => {
 });
 
 module.exports = aggregate;
+// aggregate('./data/datafile.csv');
